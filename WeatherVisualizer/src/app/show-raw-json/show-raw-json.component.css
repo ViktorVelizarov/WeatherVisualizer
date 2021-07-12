@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 2rem;
+  }
+  
+  table {
+    text-align: left;
+    position: relative;
+    border-spacing: 0;
+    border-collapse: separate
+  }
+  th, td {
+    padding: 0.25rem;
+}
+th {
+    border-bottom: 4px black solid;
+  }
+  tr.sticky th {
+    background: white;
+    position: sticky;
+    top: 0;
+  }

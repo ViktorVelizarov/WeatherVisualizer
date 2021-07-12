@@ -4,9 +4,21 @@ import { WeatherData, CityDataInterface } from '../weather';
 @Component({
   selector: 'app-show-raw-json',
   templateUrl: './show-raw-json.component.html',
-  styleUrls: ['./show-raw-json.component.css']
+  styleUrls: ['./show-raw-json.component.css', '../app.component.css']
 })
 export class AppShowRawJsonComponent implements OnInit {
+
+  forecastSize = 0;
+
+  showContriesDD: boolean = false;
+  showFarenheit: boolean = false;
+
+  input: string = '';
+  chosenId: string = '';
+
+  arr: WeatherData[] = [];
+
+  cityDataArr: CityDataInterface[] = [];
 
   constructor() { }
 
@@ -15,6 +27,7 @@ export class AppShowRawJsonComponent implements OnInit {
     this.getDataFromSite();
     this.getCityData();
   }
+
 
   getCityData() {
     let that = this;
@@ -26,7 +39,6 @@ export class AppShowRawJsonComponent implements OnInit {
           let lines = txt.split(/\n/gi)
 
           for (let line of lines) {
-            //console.log(line);
             line = line.replace(/"/gi, '');
             // This is India
             let tokens = line.split(/;/gi)
@@ -45,12 +57,15 @@ export class AppShowRawJsonComponent implements OnInit {
   }
 
   dropDownChangeHandler() {
+    let that = this;
     console.log(this.input);
-    this.getDataFromSite();
+    if (this.input != 'empty')
+      this.getDataFromSite();
+    else
+      that.arr = [];
   }
 
   getDataFromSite() {
-    let data = ''
     let that = this;
 
     fetch('http://localhost:3000/pipe/https://worldweather.wmo.int/en/json/' + this.input + '_en.json')
@@ -59,8 +74,17 @@ export class AppShowRawJsonComponent implements OnInit {
       })
       .then(function (myJson) {
         that.arr = [myJson];
+        // that.arr.push(myJson);
         console.log(that.arr)
       });
+  }
+
+  nullSize() {
+    this.forecastSize = 0;
+  }
+
+  incrementSize() {
+    this.forecastSize++;
   }
 
   //Add input validation and a switch statement to go thru the cities in https://worldweather.wmo.int/en/json/full_city_list.txts
@@ -124,9 +148,10 @@ export class AppShowRawJsonComponent implements OnInit {
       case 'Cloudy':
       case 'Mostly Cloudy':
         return baseSrc + 'cloud-solid.svg';
-      case 'Sunny Periods':
+      case 'Sunny Intervals':
       case 'No Rain':
       case 'Clearing':
+      case 'Sunny Periods':
       case 'Partly Cloudy':
       case 'Partly Bright':
       case 'Mild':
@@ -148,19 +173,8 @@ export class AppShowRawJsonComponent implements OnInit {
       case 'Volcanic Ash':
         return baseSrc + 'temperature-high-solid.svg';
       default:
-        return baseSrc + 'sun-solid.svg';
+        return baseSrc + 'question-solid.svg';
     }
   }
 
-  cityDataArr: CityDataInterface[] = [];
-
-  showContriesDD: boolean = false;
-
-  showFarenheit: boolean = false;
-
-  input: string = '';
-
-  chosenId: string = '';
-
-  arr: WeatherData[] = [];
 }
