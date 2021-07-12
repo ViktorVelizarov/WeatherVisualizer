@@ -1,0 +1,54 @@
+
+<button style="width: 100px; height: 50px;" (click)="showFarenheit = !showFarenheit"> Change to {{showFarenheit ? 'Celsius' : 'Farenheit'}}</button>
+<input style="margin-left: 20px; margin-right: 20px;" #box (keyup.enter)="onEnter(box.value)">
+
+<select [(ngModel)]="input" (change)="dropDownChangeHandler()">
+  <option value="">Please select a City</option>
+  <option *ngFor="let city of cityDataArr" [value]="city.CityId">
+          {{city.Country + ' - ' + city.City}}
+  </option>
+</select>
+
+<div *ngFor="let data of arr">
+
+<h1> Weather data for the city of <u>{{data.city.cityName}}</u> </h1>
+<h2> Data issued on <u>{{data.city.forecast.issueDate}}</u> </h2>
+<h3> Data from station <u>{{data.city.stationName}}</u> </h3>
+
+<h3> Forecast for the next several days </h3>
+<table>
+    <tr>
+      <th> Forecast date </th>
+      <th> Weather </th>
+      <th> Min Temp {{showFarenheit ? 'F' : 'C'}}° </th>
+      <th> Max Temp {{showFarenheit ? 'F' : 'C'}}° </th>
+      <th> Weather Icon </th>
+    </tr>
+    <tr *ngFor="let day of data.city.forecast.forecastDay">
+      <td> {{day.forecastDate}} </td>
+      <td> {{day.weather}} </td>
+      <td> {{showFarenheit ? day.minTempF : day.minTemp}}° </td>
+      <td> {{showFarenheit ? day.maxTempF : day.maxTemp}}° </td>
+      <td> <img [src]="resolveWeatherIcon(day.weather)" style="width: 50px; height: 50px;"> </td>
+    </tr>
+  </table>
+</div>
+
+<button (click)="showContriesDD = !showContriesDD"> Click to  {{showContriesDD ? 'hide' : 'show'}} all available contries </button>
+<table *ngIf="showContriesDD">
+  <tr >
+    <th> Country </th>
+    <th> City </th>
+    <th> CityId </th>
+  </tr>
+  <tr *ngFor="let city of cityDataArr">
+    <td> {{city.Country}} </td>
+    <td> {{city.City}} </td>
+    <td> {{city.CityId}} </td>
+  </tr>
+</table>
+
+<!-- <input type="text" #box (keydown)="">
+<datalist id="dynmicUserIds">
+   <option *ngFor="let city of cityDataArr" [value]="city"> {{city.Country}} | {{city.City}} | {{city.CityId}} </option>
+</datalist> -->
