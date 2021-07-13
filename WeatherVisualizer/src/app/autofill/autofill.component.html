@@ -1,0 +1,27 @@
+<select id="dropDownSearch" [(ngModel)]="input" (change)="dropDownChangeHandler()">
+  <!-- <option [value]="'empty'">Please select a City</option> -->
+  <option *ngFor="let city of cityDataArr" [value]="city.CityId">
+    {{city.Country + ' - ' + city.City}}
+  </option>
+</select>
+
+<br>
+<br>
+
+<form class="example-form cityInputForm">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <!-- <mat-label>City</mat-label> -->
+    <input id="autocompleteSearch" matInput
+           aria-label="City"
+           [matAutocomplete]="auto"
+           [formControl]="cityCtrl"
+           #box (keyup.enter)="onEnter(box.value)">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let city of filteredCities | async" [value]="city.City">
+        <!-- <img class="example-option-img" aria-hidden [src]="city.flag" height="25"> -->
+        <span>{{city.City}}</span> |
+        <small>{{city.Country}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

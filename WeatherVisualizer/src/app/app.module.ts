@@ -2,19 +2,26 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ​MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
-import { AppShowRawJsonComponent } from './show-raw-json/show-raw-json.component';
+import { WeatherDisplayComponent } from './weatherDisplay/weatherDisplay.component';
+import { AutofillComponent } from './autofill/autofill.component';
 
 @NgModule({
-  declarations: [				
+  declarations: [						
     AppComponent,
-      AppShowRawJsonComponent,
-   ],
+    WeatherDisplayComponent,
+    AutofillComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule      
+    FormsModule,
+    ReactiveFormsModule,
+    ​MatAutocompleteModule,
+    MatIconModule     
   ],
   providers: [],
   bootstrap: [AppComponent],

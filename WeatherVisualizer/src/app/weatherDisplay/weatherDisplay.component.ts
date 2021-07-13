@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherData, CityDataInterface } from '../weather';
 
 @Component({
-  selector: 'app-show-raw-json',
-  templateUrl: './show-raw-json.component.html',
-  styleUrls: ['./show-raw-json.component.css', '../app.component.css']
+  selector: 'app-weatherDisplay',
+  templateUrl: './weatherDisplay.component.html',
+  styleUrls: ['./weatherDisplay.component.css', '../app.component.css']
 })
-export class AppShowRawJsonComponent implements OnInit {
+export class WeatherDisplayComponent implements OnInit {
 
   forecastSize = 0;
 
@@ -24,10 +24,9 @@ export class AppShowRawJsonComponent implements OnInit {
 
   ngOnInit() {
     this.input = '303';
-    this.getDataFromSite();
+    this.getDataFromSite(this.input);
     this.getCityData();
   }
-
 
   getCityData() {
     let that = this;
@@ -60,15 +59,20 @@ export class AppShowRawJsonComponent implements OnInit {
     let that = this;
     console.log(this.input);
     if (this.input != 'empty')
-      this.getDataFromSite();
+      this.getDataFromSite(this.input);
     else
       that.arr = [];
   }
 
-  getDataFromSite() {
+  getDataFromSite(cityCode: string) {
     let that = this;
 
-    fetch('http://localhost:3000/pipe/https://worldweather.wmo.int/en/json/' + this.input + '_en.json')
+    if (cityCode == '-1') {
+      that.arr = [];
+      return;
+    }
+
+    fetch('http://localhost:3000/pipe/https://worldweather.wmo.int/en/json/' + cityCode + '_en.json')
       .then(function (response) {
         return response.json();
       })
@@ -89,8 +93,11 @@ export class AppShowRawJsonComponent implements OnInit {
 
   //Add input validation and a switch statement to go thru the cities in https://worldweather.wmo.int/en/json/full_city_list.txts
   onEnter(value: string) {
-    this.input = value;
-    this.getDataFromSite();
+    this.getDataFromSite(value);
+  }
+
+  takeCityCode(CityCode: string) {
+    this.getDataFromSite(CityCode);
   }
 
   resolveWeatherIcon(value: string) {
@@ -177,4 +184,87 @@ export class AppShowRawJsonComponent implements OnInit {
     }
   }
 
+  resolveWeatherMatIcon(value: string) {
+    let baseSrc = '../../assets/Weather Icons/';
+    switch (value) {
+      case 'Sandstorm':
+      case 'Duststorm':
+      case 'Sand':
+      case 'Dust':
+      case 'Windy':
+      case 'Squall':
+      case 'Stormy':
+      case 'Gale':
+      case 'Dry':
+        return baseSrc + 'wind-solid.svg';
+      case 'Hail':
+      case 'Blowing':
+      case 'Snow':
+      case 'Blizzard':
+      case 'Snowdrift':
+      case 'Snow Showers':
+      case 'Flurries':
+      case 'Heavy Snow':
+      case 'Snowfall':
+      case 'Light Snow':
+        return 'ac_unit';
+      case 'Sleet':
+      case 'Showers':
+      case 'Heavy Showers':
+      case 'Rainshower':
+        return baseSrc + 'cloud-showers-heavy-solid.svg';
+      case 'Thunderstorms':
+      case 'Thundershowers':
+      case 'Storm':
+      case 'Lightning':
+        return baseSrc + 'bolt-solid.svg';
+      case 'Occasional Showers':
+      case 'Scattered Showers':
+      case 'Isolated Showers':
+      case 'Light Showers':
+      case 'Freezing Rain':
+      case 'Sandstorm':
+      case 'Rain':
+      case 'Drizzle':
+      case 'Light Rain':
+      case 'Wet':
+      case 'Humid':
+        return baseSrc + 'cloud-rain-solid.svg';
+      case 'Fog':
+      case 'Mist':
+      case 'Smoke':
+      case 'Haze':
+        return baseSrc + 'smog-solid.svg';
+      case 'Overcast':
+      case 'Cloudy':
+      case 'Mostly Cloudy':
+        return baseSrc + 'cloud-solid.svg';
+      case 'Sunny Intervals':
+      case 'No Rain':
+      case 'Clearing':
+      case 'Sunny Periods':
+      case 'Partly Cloudy':
+      case 'Partly Bright':
+      case 'Mild':
+        return baseSrc + 'cloud-sun-solid.svg';
+      case 'Bright':
+      case 'Sunny':
+      case 'Fair':
+      case 'Fine':
+      case 'Clear':
+        return 'wb_sunny';
+      case 'Freezing':
+      case 'Frost':
+      case 'Cold':
+      case 'Chilly':
+      case 'Cool':
+        return baseSrc + 'temperature-low-solid.svg';
+      case 'Hot':
+      case 'Warm':
+      case 'Volcanic Ash':
+        return baseSrc + 'temperature-high-solid.svg';
+      default:
+        return baseSrc + 'question-solid.svg';
+    }
+  }
 }

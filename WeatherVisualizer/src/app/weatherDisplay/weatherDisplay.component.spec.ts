@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AppShowRawJsonComponent } from './show-raw-json.component';
+import { WeatherDisplayComponent } from './weatherDisplay.component';
 
-describe('AppShowRawJsonComponent', () => {
-  let component: AppShowRawJsonComponent;
-  let fixture: ComponentFixture<AppShowRawJsonComponent>;
+describe('WeatherDisplayComponent', () => {
+  let component: WeatherDisplayComponent;
+  let fixture: ComponentFixture<WeatherDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppShowRawJsonComponent ]
+      declarations: [ WeatherDisplayComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppShowRawJsonComponent);
+    fixture = TestBed.createComponent(WeatherDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
