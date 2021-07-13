@@ -19,7 +19,7 @@
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let city of filteredCities | async" [value]="city.City">
         <!-- <img class="example-option-img" aria-hidden [src]="city.flag" height="25"> -->
-        <span>{{city.City}}</span> |
+        <span>{{city.City}} ({{city.CityId}})</span> |
         <small>{{city.Country}}</small>
       </mat-option>
     </mat-autocomplete>

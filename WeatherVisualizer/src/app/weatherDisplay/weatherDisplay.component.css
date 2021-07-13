@@ -6,6 +6,9 @@ body
 
 table
 {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
   text-align: left;
   position: relative;
   border-spacing: 0;

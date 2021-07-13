@@ -1,15 +1,7 @@
-<!-- <select id="dropDownSearch" style="font-size: 1rem;" [(ngModel)]="input" (change)="dropDownChangeHandler()">
-  <option [value]="'empty'">Please select a City</option>
-  <option *ngFor="let city of cityDataArr" [value]="city.CityId">
-    {{city.Country + ' - ' + city.City}}
-  </option>
-</select> -->
-
 <app-autofill (newEvent)="takeCityCode($event)">
 
 </app-autofill>
 
-<br>
 <br>
 
 <hr style="height: 6px; width: 100%; border-color: #1976d2; background-color: #1976d2;">
@@ -17,13 +9,13 @@
 <div style="text-align: center;" *ngFor="let data of arr">
 
   <h2 style="font-size: 20pt;"> Weather data for <span
-      [ngStyle]="{'text-decoration':(data.city.isCapital ? 'underline' : 'none')}">{{data.city.member.memName + ' - ' +
-      data.city.cityName}}</span> </h2>
+      [ngStyle]="{'text-decoration':(data.city.isCapital ? 'underline' : 'none')}">{{printData(data.city.member.memName + ' - ' +
+      data.city.cityName)}}</span> </h2>
   <h3> Data from station <span
-      [ngStyle]="{'text-decoration':(data.city.isCapital ? 'underline' : 'none')}">{{data.city.stationName}}</span>
+      [ngStyle]="{'text-decoration':(data.city.isCapital ? 'underline' : 'none')}">{{printData(data.city.stationName)}}</span>
   </h3>
   <h3> Data issued on <span
-      [ngStyle]="{'text-decoration':(data.city.isCapital ? 'underline' : 'none')}">{{data.city.forecast.issueDate}}</span>
+      [ngStyle]="{'text-decoration':(data.city.isCapital ? 'underline' : 'none')}">{{printData(data.city.forecast.issueDate)}}</span>
   </h3>
 
   <h3> Forecast for the next {{ forecastSize }} days </h3>
@@ -39,14 +31,12 @@
       <th> Max Temp {{showFarenheit ? 'F' : 'C'}}° </th>
       <th> Weather Icon </th>
     </tr>
-    <ng-container> {{nullSize()}} </ng-container>
     <tr *ngFor="let day of data.city.forecast.forecastDay">
-      <ng-container> {{incrementSize()}} </ng-container>
       <td></td>
-      <td> {{day.forecastDate}} </td>
-      <td> {{day.weather}} </td>
-      <td> {{showFarenheit ? day.minTempF : day.minTemp}}° </td>
-      <td> {{showFarenheit ? day.maxTempF : day.maxTemp}}° </td>
+      <td> {{printData(day.forecastDate)}} </td>
+      <td> {{printData(day.weather)}} </td>
+      <td> {{showFarenheit ? printData(day.minTempF) : printData(day.minTemp)}}° </td>
+      <td> {{showFarenheit ? printData(day.maxTempF) : printData(day.maxTemp)}}° </td>
       <td>
         <img [src]="resolveWeatherIcon(day.weather)" [alt]="day.weather" style="width: 50px; height: 50px;">
         <!-- <mat-icon>{{resolveWeatherMatIcon(day.weather)}}</mat-icon> -->

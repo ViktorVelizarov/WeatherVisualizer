@@ -26,7 +26,7 @@ export class WeatherDisplayComponent implements OnInit {
     this.input = '303';
     this.getDataFromSite(this.input);
     this.getCityData();
-  }
+  } 
 
   getCityData() {
     let that = this;
@@ -55,15 +55,6 @@ export class WeatherDisplayComponent implements OnInit {
       })
   }
 
-  dropDownChangeHandler() {
-    let that = this;
-    console.log(this.input);
-    if (this.input != 'empty')
-      this.getDataFromSite(this.input);
-    else
-      that.arr = [];
-  }
-
   getDataFromSite(cityCode: string) {
     let that = this;
 
@@ -79,18 +70,18 @@ export class WeatherDisplayComponent implements OnInit {
       .then(function (myJson) {
         that.arr = [myJson];
         // that.arr.push(myJson);
-        console.log(that.arr)
+        that.forecastSize = that.arr[0].city.forecast.forecastDay.length;
+        // console.log(that.arr)
       });
   }
 
-  nullSize() {
-    this.forecastSize = 0;
+  printData(value: string)
+  {
+    if (!value)
+      return 'No data'
+    return value
   }
-
-  incrementSize() {
-    this.forecastSize++;
-  }
-
+  
   //Add input validation and a switch statement to go thru the cities in https://worldweather.wmo.int/en/json/full_city_list.txts
   onEnter(value: string) {
     this.getDataFromSite(value);
@@ -184,6 +175,7 @@ export class WeatherDisplayComponent implements OnInit {
     }
   }
 
+  //WIP
   resolveWeatherMatIcon(value: string) {
     let baseSrc = '../../assets/Weather Icons/';
     switch (value) {
