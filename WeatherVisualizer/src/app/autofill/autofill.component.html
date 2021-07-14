@@ -1,6 +1,6 @@
 <select id="dropDownSearch" [(ngModel)]="input" (change)="dropDownChangeHandler()">
-  <!-- <option [value]="'empty'">Please select a City</option> -->
-  <option *ngFor="let city of cityDataArr" [value]="city.CityId">
+  <option [value]="['-1','empty']">Please  select a City</option>
+  <option *ngFor="let city of cityDataArr" [value]="[city.CityId, city.City]">
     {{city.Country + ' - ' + city.City}}
   </option>
 </select>
@@ -15,7 +15,11 @@
            aria-label="City"
            [matAutocomplete]="auto"
            [formControl]="cityCtrl"
-           #box (keyup.enter)="onEnter(box.value)">
+           #box
+           (focusin)="box.select()"
+           (focusout)="autoCompleteChangeHandler(box.value)"
+           (keyup.enter)="autoCompleteChangeHandler(box.value)"
+           >
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let city of filteredCities | async" [value]="city.City">
         <!-- <img class="example-option-img" aria-hidden [src]="city.flag" height="25"> -->

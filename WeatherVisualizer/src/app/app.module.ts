@@ -10,18 +10,18 @@ import { WeatherDisplayComponent } from './weatherDisplay/weatherDisplay.compone
 import { AutofillComponent } from './autofill/autofill.component';
 
 @NgModule({
-  declarations: [						
+  declarations: [							
     AppComponent,
     WeatherDisplayComponent,
     AutofillComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     ​MatAutocompleteModule,
-    MatIconModule     
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],

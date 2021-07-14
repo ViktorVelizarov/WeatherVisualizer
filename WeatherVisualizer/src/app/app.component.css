@@ -48,6 +48,10 @@
     margin: 0 16px;
   }
 
+  .toolbar span {
+    font-size: 1.5rem;
+  }
+
   a,
   a:visited,
   a:hover {
@@ -122,15 +126,4 @@ button:focus {
 
 button:active {
   transform: scale(0.99);
-}
-
-button.toggledOn{
-  background: #2e8eee;
-  
-}
-
-button.toggledOff{
-  background: #004ca8;
-
-  
 }

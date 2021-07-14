@@ -1,11 +1,9 @@
-body
-{
+body {
   margin: 0;
   padding: 2rem;
 }
 
-table
-{
+table {
   width: auto;
   margin-left: auto;
   margin-right: auto;
@@ -15,27 +13,44 @@ table
   border-collapse: separate
 }
 
-th, td
-{
+th, td {
   padding: 0.25rem;
 }
 
-th
-{
-  border-bottom: 4px black solid;
+th {
+  border-bottom: 0.25rem black solid;
 }
 
-tr.sticky th
-{
+tr.sticky th {
   background: white;
   position: sticky;
   top: 0;
 }
 
-.cityIdInput
-{
+.cityIdInput {
   background: white;
-  margin-top: 15px;
-  margin-bottom: 30px;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
+}
+
+.dividingLine {
+  height: 0.4rem;
+  width: 100%;
+  border-color: #1976d2;
+  background-color: #1976d2;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.centerBlock {
+  display: block;
+  margin: 0 auto;
+}
+
+.weatherIcon {
+  width: 3rem;
+  height: 3rem;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { CityDataInterface } from '../weather';
 
@@ -13,24 +13,25 @@ import { CityDataInterface } from '../weather';
 export class AutofillComponent implements OnInit {
 
   cityDataArr: CityDataInterface[] = [];
-  
+
   cityCtrl = new FormControl();
   filteredCities: Observable<CityDataInterface[]>;
 
-  input: string = '';
+  input: string = '-1,empty';
 
   constructor() {
-    this.getCityData();    
+    this.getCityData();
+    this.cityCtrl.setValue('Please enter a City');
     this.filteredCities = this.cityCtrl.valueChanges
       .pipe(
         startWith(''),
         map(city => city ? this._filterCities(city) : this.cityDataArr.slice())
       );
-    }
-    
-    private _filterCities(value: string): CityDataInterface[] {
-      const filterValue = value.toLowerCase();
-      
+  }
+
+  private _filterCities(value: string): CityDataInterface[] {
+    const filterValue = value.toLowerCase();
+
     return this.cityDataArr.filter(city => city.City.toLowerCase().includes(filterValue));
   }
 
@@ -39,8 +40,7 @@ export class AutofillComponent implements OnInit {
 
   @Output() newEvent = new EventEmitter<string>();
 
-  returnCityCode(value: string)
-  {
+  returnCityCode(value: string) {
     this.newEvent.emit(value);
   }
 
@@ -71,21 +71,26 @@ export class AutofillComponent implements OnInit {
       })
   }
 
-  onEnter(value: string) {
-    let chosenCity: CityDataInterface = {"City":"NULL", "CityId":"-1", "Country":"NULL"};
+  autoCompleteChangeHandler(value: string) {
+    let chosenCity: CityDataInterface = { "City": "NULL", "CityId": "-1", "Country": "NULL" };
     chosenCity = this.cityDataArr.find(o => o.City === value) as CityDataInterface;
     if (!chosenCity)
-      chosenCity = {"City":"NULL", "CityId":"-1", "Country":"NULL"};
-    this.input = chosenCity.Country + ' - ' + chosenCity.City;
+      chosenCity = { "City": "NULL", "CityId": "-1", "Country": "NULL" };
+    this.input = chosenCity.CityId + ',' + chosenCity.City;
     this.returnCityCode(chosenCity.CityId);
   }
 
   dropDownChangeHandler() {
-    // console.log(this.input);
-    if (this.input != 'empty')
-      this.returnCityCode(this.input);
-    else
+    let inputs = this.input.split(/,/gi);
+    // console.log(inputs);
+    if (inputs[0] != '-1') {
+      this.cityCtrl.setValue(inputs[1])
+      this.returnCityCode(inputs[0]);
+    }
+    else {
+      this.cityCtrl.setValue('Please enter a City')
       this.returnCityCode('-1');
+    }
   }
 
 }

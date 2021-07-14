@@ -12,6 +12,10 @@ export class WeatherDisplayComponent implements OnInit {
 
   showContriesDD: boolean = false;
   showFarenheit: boolean = false;
+  showIconifyIcons: boolean = true;
+
+  buttonOnClr: string = '#24619e';
+  buttonOffClr: string = '#147ee9';
 
   input: string = '';
   chosenId: string = '';
@@ -23,10 +27,10 @@ export class WeatherDisplayComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.input = '303';
-    this.getDataFromSite(this.input);
+    // this.input = '303';
+    // this.getDataFromSite(this.input);
     this.getCityData();
-  } 
+  }
 
   getCityData() {
     let that = this;
@@ -75,13 +79,12 @@ export class WeatherDisplayComponent implements OnInit {
       });
   }
 
-  printData(value: string)
-  {
+  printData(value: string) {
     if (!value)
       return 'No data'
     return value
   }
-  
+
   //Add input validation and a switch statement to go thru the cities in https://worldweather.wmo.int/en/json/full_city_list.txts
   onEnter(value: string) {
     this.getDataFromSite(value);
@@ -175,62 +178,87 @@ export class WeatherDisplayComponent implements OnInit {
     }
   }
 
-  //WIP
-  resolveWeatherMatIcon(value: string) {
-    let baseSrc = '../../assets/Weather Icons/';
+  resolveWeatherIconIconify(value: string) {
+    let baseSrc = '../../assets/Weather Icons - Iconify/';
     switch (value) {
-      case 'Sandstorm':
-      case 'Duststorm':
       case 'Sand':
       case 'Dust':
       case 'Windy':
       case 'Squall':
-      case 'Stormy':
       case 'Gale':
-      case 'Dry':
-        return baseSrc + 'wind-solid.svg';
-      case 'Hail':
       case 'Blowing':
+        return baseSrc + 'weather-windy.svg';
+
+      case 'Sandstorm':
+      case 'Duststorm':
+      case 'Sandstorm':
+        return baseSrc + 'weather-tornado.svg';
+
+
+      case 'Hail':
+        return baseSrc + 'weather-hail.svg';
+
       case 'Snow':
-      case 'Blizzard':
-      case 'Snowdrift':
       case 'Snow Showers':
       case 'Flurries':
+      case 'Light Snow':
+        return baseSrc + 'weather-snowy.svg';
+
+      case 'Blizzard':
+      case 'Snowdrift':
       case 'Heavy Snow':
       case 'Snowfall':
-      case 'Light Snow':
-        return 'ac_unit';
+        return baseSrc + 'weather-snowy-heavy.svg';
+
       case 'Sleet':
+        return baseSrc + 'weather-snowy-rainy.svg';
+
       case 'Showers':
       case 'Heavy Showers':
       case 'Rainshower':
-        return baseSrc + 'cloud-showers-heavy-solid.svg';
+        return baseSrc + 'weather-pouring.svg';
+
       case 'Thunderstorms':
       case 'Thundershowers':
       case 'Storm':
+      case 'Stormy':
+        return baseSrc + 'weather-lightning-rainy.svg';
+
       case 'Lightning':
-        return baseSrc + 'bolt-solid.svg';
+        return baseSrc + 'weather-lightning.svg';
+
       case 'Occasional Showers':
       case 'Scattered Showers':
       case 'Isolated Showers':
       case 'Light Showers':
+        return baseSrc + 'weather-partly-rainy.svg';
+
       case 'Freezing Rain':
-      case 'Sandstorm':
-      case 'Rain':
+        return baseSrc + 'weather-hail.svg';
+
       case 'Drizzle':
       case 'Light Rain':
+      case 'Rain':
+        return baseSrc + 'weather-rainy.svg';
+
       case 'Wet':
       case 'Humid':
-        return baseSrc + 'cloud-rain-solid.svg';
+        return baseSrc + 'water-percent.svg';
+
       case 'Fog':
       case 'Mist':
+        return baseSrc + 'weather-fog.svg';
+
       case 'Smoke':
       case 'Haze':
-        return baseSrc + 'smog-solid.svg';
+        return baseSrc + 'weather-haze.svg';
+
       case 'Overcast':
+        return baseSrc + 'cloud.svg';
       case 'Cloudy':
       case 'Mostly Cloudy':
-        return baseSrc + 'cloud-solid.svg';
+        return baseSrc + 'cloud-outline.svg';
+
       case 'Sunny Intervals':
       case 'No Rain':
       case 'Clearing':
@@ -238,25 +266,38 @@ export class WeatherDisplayComponent implements OnInit {
       case 'Partly Cloudy':
       case 'Partly Bright':
       case 'Mild':
-        return baseSrc + 'cloud-sun-solid.svg';
+        return baseSrc + 'weather-partly-cloudy.svg';
+
       case 'Bright':
       case 'Sunny':
       case 'Fair':
       case 'Fine':
       case 'Clear':
-        return 'wb_sunny';
-      case 'Freezing':
-      case 'Frost':
-      case 'Cold':
-      case 'Chilly':
+        return baseSrc + 'weather-sunny.svg';
+
       case 'Cool':
-        return baseSrc + 'temperature-low-solid.svg';
-      case 'Hot':
+        return baseSrc + 'thermometer-low.svg';
+
+      case 'Chilly':
+      case 'Cold':
+        return baseSrc + 'snowflake.svg';
+
+      case 'Frost':
+      case 'Freezing':
+        return baseSrc + 'snowflake-alert.svg';
+
       case 'Warm':
+        return baseSrc + 'thermometer-high.svg';
+
+      case 'Hot':
+      case 'Dry':
+        return baseSrc + 'weather-sunny-alert.svg';
+
       case 'Volcanic Ash':
-        return baseSrc + 'temperature-high-solid.svg';
+        return baseSrc + 'mushrooom.svg';
+
       default:
-        return baseSrc + 'question-solid.svg';
+        return baseSrc + 'cloud-question.svg';
     }
   }
 }
