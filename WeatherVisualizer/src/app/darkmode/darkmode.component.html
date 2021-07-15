@@ -10,7 +10,6 @@ isDarkMd ? darkmode.buttonOffClr : lightmode.buttonOffClr}" -->
 <button (click)="isDarkMd = !isDarkMd; changeMode()"
 >
 <img
-[src]="isDarkMd ? '../../assets/Weather Icons - Iconify/baseline-dark-mode.svg' : '../../assets/Weather Icons - Iconify/baseline-light-mode.svg'"
+[src]="!isDarkMd ? '../../assets/Weather Icons - Iconify/baseline-dark-mode.svg' : '../../assets/Weather Icons - Iconify/baseline-light-mode.svg'"
 [alt]="isDarkMd ? 'Dark Mode' : 'Light Mode'"
-class="uiIcon centerBlock"
 > </button>
