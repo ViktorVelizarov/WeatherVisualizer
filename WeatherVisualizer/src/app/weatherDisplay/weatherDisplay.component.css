@@ -17,18 +17,16 @@ th, td {
   padding: 0.25rem;
 }
 
-th {
+/* th {
   border-bottom: 0.25rem black solid;
-}
+} */
 
 tr.sticky th {
-  background: white;
   position: sticky;
   top: 0;
 }
 
 .cityIdInput {
-  background: white;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -37,8 +35,6 @@ tr.sticky th {
 .dividingLine {
   height: 0.4rem;
   width: 100%;
-  border-color: #1976d2;
-  background-color: #1976d2;
 }
 
 .centerText {

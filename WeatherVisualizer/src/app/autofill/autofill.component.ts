@@ -1,9 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { CityDataInterface } from '../weather';
+import { CityDataInterface, Style } from '../dataInterfaces';
 
 @Component({
   selector: 'app-autofill',
@@ -12,12 +12,14 @@ import { CityDataInterface } from '../weather';
 })
 export class AutofillComponent implements OnInit {
 
+@Input() curStyle: Style;
+
   cityDataArr: CityDataInterface[] = [];
 
   cityCtrl = new FormControl();
   filteredCities: Observable<CityDataInterface[]>;
 
-  input: string = '-1,empty';
+  input: string = '-1,Please select a City';
 
   constructor() {
     this.getCityData();
@@ -27,6 +29,15 @@ export class AutofillComponent implements OnInit {
         startWith(''),
         map(city => city ? this._filterCities(city) : this.cityDataArr.slice())
       );
+      this.curStyle = {
+        'primClr':'#1976d2',
+        'secnCld':'#d27519',
+        'bgndClr':'#f0f0f0',
+        'textClr':'#000000',
+        'txt2Clr':'#FFFFFF',
+        'buttonOnClr':'#24619e',
+        'buttonOffClr':'#147ee9'
+      }
   }
 
   private _filterCities(value: string): CityDataInterface[] {
@@ -72,10 +83,10 @@ export class AutofillComponent implements OnInit {
   }
 
   autoCompleteChangeHandler(value: string) {
-    let chosenCity: CityDataInterface = { "City": "NULL", "CityId": "-1", "Country": "NULL" };
+    let chosenCity: CityDataInterface = { "City": "Please select a City", "CityId": "-1", "Country": "NULL" };
     chosenCity = this.cityDataArr.find(o => o.City === value) as CityDataInterface;
     if (!chosenCity)
-      chosenCity = { "City": "NULL", "CityId": "-1", "Country": "NULL" };
+      chosenCity = { "City": "Please select a City", "CityId": "-1", "Country": "NULL" };
     this.input = chosenCity.CityId + ',' + chosenCity.City;
     this.returnCityCode(chosenCity.CityId);
   }

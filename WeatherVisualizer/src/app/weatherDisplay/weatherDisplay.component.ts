@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { WeatherData, CityDataInterface } from '../weather';
+import { Component, OnInit, Input } from '@angular/core';
+import { WeatherData, CityDataInterface, Style } from '../dataInterfaces';
 
 @Component({
   selector: 'app-weatherDisplay',
@@ -8,23 +8,32 @@ import { WeatherData, CityDataInterface } from '../weather';
 })
 export class WeatherDisplayComponent implements OnInit {
 
+@Input() curStyle: Style;
+
   forecastSize = 0;
 
   showContriesDD: boolean = false;
   showFarenheit: boolean = false;
   showIconifyIcons: boolean = true;
-
-  buttonOnClr: string = '#24619e';
-  buttonOffClr: string = '#147ee9';
-
+  
   input: string = '';
   chosenId: string = '';
-
+  
   arr: WeatherData[] = [];
-
+ 
   cityDataArr: CityDataInterface[] = [];
 
-  constructor() { }
+  constructor() {
+    this.curStyle = {
+      'primClr':'#1976d2',
+      'secnCld':'#d27519',
+      'bgndClr':'#f0f0f0',
+      'textClr':'#000000',
+      'txt2Clr':'#FFFFFF',
+      'buttonOnClr':'#24619e',
+      'buttonOffClr':'#147ee9'
+    }
+  }
 
   ngOnInit() {
     // this.input = '303';

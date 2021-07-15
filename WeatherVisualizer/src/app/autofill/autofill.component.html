@@ -1,5 +1,11 @@
-<select id="dropDownSearch" [(ngModel)]="input" (change)="dropDownChangeHandler()">
-  <option [value]="['-1','empty']">Please  select a City</option>
+<select
+id="dropDownSearch"
+[(ngModel)]="input"
+(change)="dropDownChangeHandler()"
+[ngStyle]="{
+'background-color': curStyle.bgndClr,
+'color': curStyle.textClr}">
+  <option [value]="['-1','Please select a City']">Please select a City</option>
   <option *ngFor="let city of cityDataArr" [value]="[city.CityId, city.City]">
     {{city.Country + ' - ' + city.City}}
   </option>
@@ -19,9 +25,15 @@
            (focusin)="box.select()"
            (focusout)="autoCompleteChangeHandler(box.value)"
            (keyup.enter)="autoCompleteChangeHandler(box.value)"
-           >
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let city of filteredCities | async" [value]="city.City">
+           [ngStyle]="{
+            'background-color': curStyle.bgndClr,
+            'color': curStyle.textClr}">
+    <mat-autocomplete #auto="matAutocomplete" >
+      <mat-option *ngFor="let city of filteredCities | async"
+      [value]="city.City"
+      [ngStyle]="{
+        'background-color': curStyle.bgndClr,
+        'color': curStyle.textClr}">
         <!-- <img class="example-option-img" aria-hidden [src]="city.flag" height="25"> -->
         <span>{{city.City}} ({{city.CityId}})</span> |
         <small>{{city.Country}}</small>

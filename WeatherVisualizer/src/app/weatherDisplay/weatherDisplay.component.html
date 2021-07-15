@@ -1,12 +1,14 @@
-<app-autofill (newEvent)="takeCityCode($event)">
+<app-autofill (newEvent)="takeCityCode($event)" [curStyle]="curStyle">
 
 </app-autofill>
 
 <br>
 
-<hr class="dividingLine">
-
-<div class="centerText" *ngFor="let data of arr">
+<hr class="dividingLine" [ngStyle]="{
+'border-color':curStyle.primClr,
+'background-color':curStyle.primClr}">
+<div class="centerText" *ngFor="let data of arr" [ngStyle]="{
+'color' : curStyle.textClr}">
 
   <h1> Weather data for <span
       [ngStyle]="{'text-decoration': data.city.isCapital ? 'underline' : 'none'}">{{printData(data.city.member.memName) + ' - ' +
@@ -22,15 +24,27 @@
 
   <table>
     <tr>
-      <th> <button (click)="showFarenheit = !showFarenheit"
-          [ngStyle]="{'background': showFarenheit ? buttonOnClr : buttonOffClr}"> °{{showFarenheit ? 'F' : 'C'}} </button>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> <button (click)="showFarenheit = !showFarenheit"
+          [ngStyle]="{'background': showFarenheit ? curStyle.buttonOnClr : curStyle.buttonOffClr}"> °{{showFarenheit ? 'F' : 'C'}} </button>
       </th>
-      <th> Forecast date </th>
-      <th> Weather </th>
-      <th> Min Temp {{showFarenheit ? 'F' : 'C'}}° </th>
-      <th> Max Temp {{showFarenheit ? 'F' : 'C'}}° </th>
-      <th> <button (click)="showIconifyIcons = !showIconifyIcons"
-        [ngStyle]="{'background': showIconifyIcons ? buttonOnClr : buttonOffClr}">Icon set {{showIconifyIcons ? 1 : 2}}</button> </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> Forecast date </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> Weather </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> Min Temp {{showFarenheit ? 'F' : 'C'}}° </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> Max Temp {{showFarenheit ? 'F' : 'C'}}° </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> <button (click)="showIconifyIcons = !showIconifyIcons"
+        [ngStyle]="{'background': showIconifyIcons ? curStyle.buttonOnClr : curStyle.buttonOffClr}">Icon set {{showIconifyIcons ? 1 : 2}}</button> </th>
     </tr>
     <tr *ngFor="let day of data.city.forecast.forecastDay">
       <td></td>
@@ -39,14 +53,24 @@
       <td> {{showFarenheit ? printData(day.minTempF) : printData(day.minTemp)}}° </td>
       <td> {{showFarenheit ? printData(day.maxTempF) : printData(day.maxTemp)}}° </td>
       <td>
-        <img *ngIf="!showIconifyIcons" [src]="resolveWeatherIcon(day.weather)" [alt]="day.weather" class="weatherIcon centerBlock">
-        <img *ngIf="showIconifyIcons" [src]="resolveWeatherIconIconify(day.weather)" [alt]="day.weather" class="weatherIcon centerBlock">
+        <img *ngIf="!showIconifyIcons"
+        [src]="resolveWeatherIcon(day.weather)"
+        [alt]="day.weather"
+        class="weatherIcon centerBlock"
+        [ngStyle]="{'filter': curStyle.textClr == '#000000' ? 'invert(25%)' : 'invert(75%)'}">
+        <img *ngIf="showIconifyIcons"
+        [src]="resolveWeatherIconIconify(day.weather)"
+        [alt]="day.weather"
+        class="weatherIcon centerBlock"
+        [ngStyle]="{'filter': curStyle.textClr == '#000000' ? 'invert(0%)' : 'invert(100%)'}">
+        <!-- <img *ngIf="showIconifyIcons" [src]="resolveWeatherIconIconify(day.weather)" [alt]="day.weather" class="weatherIcon centerBlock">
+        <img style="filter: invert(100%);" *ngIf="showIconifyIcons" [src]="resolveWeatherIconIconify(day.weather)" [alt]="day.weather" class="weatherIcon centerBlock"> -->
       </td>
     </tr>
   </table>
 </div>
 
-<button (click)="showContriesDD = !showContriesDD" [ngStyle]="{'background': showContriesDD ? buttonOnClr : buttonOffClr}">
+<button (click)="showContriesDD = !showContriesDD" [ngStyle]="{'background': showContriesDD ? curStyle.buttonOnClr : curStyle.buttonOffClr}">
   Click to {{showContriesDD ? 'hide' : 'show'}} all available contries </button>
 <ng-container *ngIf="showContriesDD">
   <input class="cityIdInput"
@@ -54,15 +78,30 @@
         #box
         (focusin)="box.select()"
         (focusout)="onEnter(box.value)"
-        (keyup.enter)="onEnter(box.value)">
+        (keyup.enter)="onEnter(box.value)"
+        [ngStyle]="{
+          'background-color': curStyle.bgndClr,
+        'color': curStyle.textClr}">
   <table>
-    <tr class="sticky">
-      <th> <a href="#dropDownSearch"> <button> Top </button> </a> </th>
-      <th> Country </th>
-      <th> City </th>
-      <th> CityId </th>
+    <tr class="sticky" [ngStyle]="{
+      'background-color': curStyle.bgndClr,
+      'color': curStyle.textClr}">
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> <a href="#dropDownSearch"> <button> Top </button> </a> </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> Country </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> City </th>
+      <th [ngStyle]="{
+        'border-bottom':'0.25rem ' + curStyle.textClr + ' solid'
+      }"> CityId </th>
     </tr>
-    <tr *ngFor="let city of cityDataArr">
+    <tr *ngFor="let city of cityDataArr" [ngStyle]="{
+      'color': curStyle.textClr
+    }">
       <td> </td>
       <td> {{city.Country}} </td>
       <td> {{city.City}} </td>

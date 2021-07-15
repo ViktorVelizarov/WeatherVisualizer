@@ -1,3 +1,13 @@
+export interface Style {
+	primClr: string,
+	secnCld: string,
+	bgndClr: string,
+	textClr: string,
+	txt2Clr: string,
+	buttonOnClr: string,
+	buttonOffClr: string
+}
+
 export interface CityDataInterface
 {
 	Country: string,

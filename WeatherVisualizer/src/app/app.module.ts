@@ -8,12 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
 import { WeatherDisplayComponent } from './weatherDisplay/weatherDisplay.component';
 import { AutofillComponent } from './autofill/autofill.component';
+import { DarkmodeComponent } from './darkmode/darkmode.component';
 
 @NgModule({
-  declarations: [							
+  declarations: [								
     AppComponent,
     WeatherDisplayComponent,
-    AutofillComponent
+    AutofillComponent,
+      DarkmodeComponent
    ],
   imports: [
     BrowserModule,
